@@ -1,4 +1,4 @@
-# 羊教主 · 公众号文章导出工具
+# 羊小白魔法 · 公众号文章导出工具
 
 一个可部署、可分享的「公众号文章下载器」白标版。功能对标 [gzh.jikefuye.cn](https://gzh.jikefuye.cn)：粘贴公众号文章 / 合集链接，一键导出 **HTML / Markdown / PDF / Word / 单文件 HTML / 仅图片**，并打包成 ZIP 下载到本机。
 
@@ -48,18 +48,22 @@ npm start
 
 ```js
 module.exports = {
-  siteName: '羊教主 · 公众号文章导出',   // 站点名（标题/页头/导出页脚）
-  siteSlogan: '粘贴文章链接，一键导出 …', // 标语
-  brandOwner: '羊教主',                    // 品牌归属
-  footerText: '本站为免费在线工具 …',       // 页脚说明
-  accentColor: '#e8543f',                 // 主题色
-  contact: '',                             // 你的联系方式/公众号
-  defaultBiz: '',                          // 你自己的 __biz（合集默认带入，可留空）
-  maxBatch: 20,                            // 批量上限
-  maxCollection: 30,                       // 合集上限
+  siteName: '羊小白魔法 · 公众号文章导出',   // 站点名（标题/页头/导出页脚）
+  siteSlogan: '粘贴文章链接，一键导出 …',     // 标语
+  brandOwner: '羊小白魔法',                    // 品牌归属（页脚展示）
+  footerText: '本站为免费在线工具 …',           // 页脚说明
+  accentColor: '#f5a623',                     // 主题色（魔法橙黄）
+  contact: '',                                // 你的联系方式/公众号
+  qrcode: '/images/qrcode.jpg',               // 页脚公众号二维码（相对 public 目录，留空则不显示）
+  qrcodeAlt: '扫码关注羊小白魔法',             // 二维码 alt 文案
+  defaultBiz: '',                             // 你自己的 __biz（合集默认带入，可留空）
+  maxBatch: 20,                               // 批量上限
+  maxCollection: 30,                          // 合集上限
   port: process.env.PORT || 3000,
 };
 ```
+
+页脚二维码：把你的二维码图片放到 `public/images/qrcode.jpg`（或用 `qrcode` 指向其它路径），前端会在页脚左侧展示品牌说明、右侧展示二维码，响应式自适应。留空 `qrcode` 则页脚不显示二维码区。
 
 改完重启服务即可生效，前端会自动从 `/api/config` 读取并应用。
 
