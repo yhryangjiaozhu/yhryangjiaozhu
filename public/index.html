@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>羊教主 · 公众号文章导出</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand">
+        <span class="logo" id="brandLogo">📚</span>
+        <div>
+          <h1 id="siteName">公众号文章导出</h1>
+          <p class="slogan" id="siteSlogan">粘贴文章链接，一键导出并打包下载</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- 模式切换 -->
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-tab="single">下载单篇</button>
+      <button class="tab" data-tab="batch">批量下载</button>
+      <button class="tab" data-tab="collection">下载合集</button>
+    </div>
+
+    <!-- 导出格式 & 选项（三个模式共用） -->
+    <section class="panel options-panel">
+      <div class="opt-block">
+        <div class="opt-title">导出格式</div>
+        <div class="checks" id="formatChecks">
+          <label><input type="checkbox" value="html" checked /> HTML</label>
+          <label><input type="checkbox" value="markdown" checked /> Markdown</label>
+          <label><input type="checkbox" value="pdf" /> PDF</label>
+          <label><input type="checkbox" value="word" /> Word</label>
+          <label><input type="checkbox" value="single" /> 单文件 HTML</label>
+          <label><input type="checkbox" value="images" /> 仅图片</label>
+        </div>
+      </div>
+      <div class="opt-block">
+        <div class="opt-title">附加内容</div>
+        <div class="checks">
+          <label><input type="checkbox" id="optCover" /> 包含封面图</label>
+          <label><input type="checkbox" id="optEmbed" checked /> 图片内嵌（离线可用）</label>
+        </div>
+      </div>
+      <p class="pdf-hint" id="pdfHint" style="display:none;">
+        ⚠️ 当前服务器未安装 Chromium，PDF 暂不可用。其余格式正常；PDF 需在部署服务器执行
+        <code>npx puppeteer browsers install chrome</code> 后启用。
+      </p>
+    </section>
+
+    <!-- 单篇 -->
+    <section class="panel tab-panel active" data-panel="single">
+      <label class="field-label">文章链接（手机微信：打开文章 → 右上角「···」→ 复制链接）</label>
+      <textarea id="singleUrl" rows="3" placeholder="https://mp.weixin.qq.com/s/xxxx"></textarea>
+      <div class="actions">
+        <button class="btn primary" id="btnSingle">开始导出</button>
+        <span class="hint">无需登录，文件直接下载到你的电脑</span>
+      </div>
+    </section>
+
+    <!-- 批量 -->
+    <section class="panel tab-panel" data-panel="batch">
+      <label class="field-label">每行一条链接（一次最多 <span id="maxBatch">20</span> 条）</label>
+      <textarea id="batchUrls" rows="8" placeholder="https://mp.weixin.qq.com/s/aaa&#10;https://mp.weixin.qq.com/s/bbb"></textarea>
+      <div class="actions">
+        <button class="btn primary" id="btnBatch">开始批量下载</button>
+        <span class="hint">完成后打包为一个 ZIP（含每篇 HTML / Markdown / PDF 与图片）</span>
+      </div>
+    </section>
+
+    <!-- 合集 -->
+    <section class="panel tab-panel" data-panel="collection">
+      <label class="field-label">合集（专栏）链接：微信打开合集 → 右上角「···」→ 复制链接</label>
+      <textarea id="collectionUrl" rows="2" placeholder="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=...&album_id=..."></textarea>
+      <div class="actions">
+        <button class="btn" id="btnList">列出文章</button>
+      </div>
+      <div id="collectionResult" class="collection-result" style="display:none;">
+        <div class="cr-head">
+          <span id="crCount">共 0 篇</span>
+          <span>
+            <button class="btn-mini" id="selAll">全选</button>
+            <button class="btn-mini" id="selNone">全不选</button>
+            （最多 <span id="maxCollection">30</span> 篇）
+          </span>
+        </div>
+        <div id="articleList" class="article-list"></div>
+        <div class="actions">
+          <button class="btn primary" id="btnDownloadSel">下载选中（打包 ZIP）</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 进度 -->
+    <section class="panel progress-panel" id="progressPanel" style="display:none;">
+      <div class="spinner"></div>
+      <span id="progressText">正在抓取并生成，请稍候…</span>
+    </section>
+
+    <!-- 任务记录 -->
+    <section class="panel records">
+      <div class="records-head">
+        <h2>任务记录</h2>
+        <button class="btn-mini" id="clearRecords">清空</button>
+      </div>
+      <ul id="recordList" class="record-list"><li class="empty">暂无任务，下载记录只在本浏览器可见。</li></ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p id="footerText">本站为免费在线工具，仅供个人学习与资料存档使用。</p>
+      <p class="copyright" id="copyright"></p>
+    </div>
+  </footer>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+node_modules/
+.tmp/
+.scratch/
+npm-debug.log*
+.DS_Store

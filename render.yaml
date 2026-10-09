@@ -1,0 +1,16 @@
+# Render 部署配置
+# 用法：把本仓库推到 GitHub 后，在 Render 控制台 New Web Service → Connect a repository
+# 选本仓库，Render 会自动读取此文件完成配置（无需手动填命令）。
+services:
+  - type: web
+    name: yangxiaobai-gzh-exporter
+    runtime: node
+    plan: free
+    branch: main
+    # 安装依赖并安装 Chromium（用于 PDF；免费实例内存有限，PDF 偶发不稳定，其余格式不受影响）
+    buildCommand: npm install && npx puppeteer browsers install chrome
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # 注意：Render 会自动注入 PORT 环境变量，server.js 已支持 process.env.PORT
