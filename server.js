@@ -26,6 +26,8 @@ app.get('/api/config', (req, res) => {
     footerText: config.footerText,
     accentColor: config.accentColor,
     contact: config.contact,
+    qrcode: config.qrcode,
+    qrcodeAlt: config.qrcodeAlt,
     defaultBiz: config.defaultBiz,
     maxBatch: config.maxBatch,
     maxCollection: config.maxCollection,

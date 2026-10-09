@@ -20,6 +20,10 @@ module.exports = {
   // 可选：你的联系方式 / 公众号（留空则不显示）
   contact: '',
 
+  // 可选：公众号二维码（放在页脚，相对 public 目录的静态资源路径，留空则不显示）
+  qrcode: '/images/qrcode.jpg',
+  qrcodeAlt: '扫码关注羊小白魔法',
+
   // 可选：默认填入你自己的公众号 __biz（合集功能可默认带入，留空则用户自行粘贴）
   defaultBiz: '',
 

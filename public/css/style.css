@@ -103,5 +103,20 @@ textarea:focus { border-color: var(--accent); }
 
 /* Footer */
 .site-footer { margin-top: 30px; padding: 22px 0; background: #fff; border-top: 1px solid var(--border); }
-.site-footer p { margin: 4px 0; font-size: 12px; color: var(--muted); text-align: center; }
+.site-footer p { margin: 4px 0; font-size: 12px; color: var(--muted); text-align: left; }
 .copyright { opacity: .8; }
+
+.footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 18px; flex-wrap: wrap; }
+.footer-left { flex: 1 1 240px; }
+
+.footer-qrcode { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.footer-qrcode img {
+  width: 90px; height: 90px; border-radius: 10px; border: 1px solid var(--border);
+  object-fit: contain; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.footer-qrcode span { font-size: 12px; color: var(--muted); white-space: nowrap; }
+
+@media (max-width: 520px) {
+  .footer-inner { justify-content: center; text-align: center; }
+  .footer-left p { text-align: center; }
+}

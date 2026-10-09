@@ -7,8 +7,10 @@
     siteName: '公众号文章导出',
     siteSlogan: '粘贴文章链接，一键导出并打包下载',
     footerText: '',
-    accentColor: '#e8543f',
+    accentColor: '#f5a623',
     contact: '',
+    qrcode: '',
+    qrcodeAlt: '',
     maxBatch: 20,
     maxCollection: 30,
     pdf: true,
@@ -33,6 +35,19 @@
       ? `${CFG.siteName} · ${CFG.contact}`
       : `© ${new Date().getFullYear()} ${CFG.siteName}`;
     document.getElementById('maxBatch').textContent = CFG.maxBatch;
+
+    // 页脚二维码
+    const qrcodeBox = document.getElementById('qrcodeBox');
+    const qrcodeImg = document.getElementById('qrcode');
+    const qrcodeAltText = document.getElementById('qrcodeAlt');
+    if (CFG.qrcode) {
+      qrcodeBox.style.display = 'flex';
+      qrcodeImg.src = CFG.qrcode;
+      qrcodeImg.alt = CFG.qrcodeAlt || '公众号二维码';
+      if (qrcodeAltText) qrcodeAltText.textContent = CFG.qrcodeAlt || '';
+    } else if (qrcodeBox) {
+      qrcodeBox.style.display = 'none';
+    }
     document.getElementById('maxCollection').textContent = CFG.maxCollection;
     if (!CFG.pdf) {
       document.getElementById('pdfHint').style.display = 'block';
